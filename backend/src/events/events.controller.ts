@@ -1,10 +1,12 @@
-import { Controller, Get, Post, Body, Param, Put, Delete } from '@nestjs/common';
-import { EventsService } from './events.service';
-
+import { Controller, Get, Post, Body, Param, Put, Delete, UseGuards } from '@nestjs/common';
+import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
+import { EventsService } from './events.service'; 
+ 
 @Controller('events')
 export class EventsController {
   constructor(private readonly eventsService: EventsService) {}
 
+  @UseGuards(JwtAuthGuard)
   @Post()
   create(@Body() createEventDto: any) {
     // Aqui poderíamos também validar manualmente se os campos existem
@@ -12,7 +14,7 @@ export class EventsController {
     return this.eventsService.createEvent(createEventDto);
   }
 
-  @Get()
+  @Get() 
   findAll() {
     return this.eventsService.findAll();
   }
@@ -21,12 +23,12 @@ export class EventsController {
   findOne(@Param('id') id: string) {
     return this.eventsService.findById(id);
   }
-
+ 
   @Put(':id')
   update(
     @Param('id') id: string,
-    @Body() updateEventDto: any,
-  ) {
+    @Body() updateEventDto: any, 
+  ) { 
     return this.eventsService.updateEvent(id, updateEventDto);
   }
 
@@ -35,3 +37,4 @@ export class EventsController {
     return this.eventsService.deleteEvent(id);
   }
 }
+

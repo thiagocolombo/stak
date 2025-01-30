@@ -27,7 +27,7 @@ export default function HomePage() {
   const [timeFilter, setTimeFilter] = useState<'dia' | 'mes' | 'todos' >('todos');
   const [completionFilter, setCompletionFilter] = useState<'todos' | 'concluido' | 'aberto'>('todos');
 
-  // URL do nosso backend Nest
+  // URL backend
   const API_URL = 'http://localhost:3000/events';
 
   useEffect(() => {
@@ -45,7 +45,7 @@ export default function HomePage() {
 
   // Criação de um novo evento
   const createEvent = async () => {
-    // Validação simples
+    // Validação dos campos preenchidos
     if (!newEvent.title.trim() || !newEvent.description.trim() || !newEvent.date) {
       setErrorMsg('Por favor, preencha todos os campos.');
       return;
@@ -60,7 +60,7 @@ export default function HomePage() {
       console.error('Erro ao criar evento:', error);
       if (error?.response?.data?.message) {
         setErrorMsg(error.response.data.message);
-      }
+      } 
     }
   };
 
@@ -118,11 +118,10 @@ export default function HomePage() {
     }
   };
 
-  // FUNÇÕES DE FILTRO:
 
   // Filtro de data
-  // dia => só eventos de hoje
-  // mes => só eventos do mês atual
+  // dia => tarefa do hoje
+  // mes =>tarefa do mês atual
   // todos => exibe todos
   function applyTimeFilter(e: Event): boolean {
     if (!e.date) return false;
@@ -149,7 +148,7 @@ export default function HomePage() {
     }
   } 
 
-  // Filtro de conclusão
+  // Filtro de status
   // concluido => e.completed === true
   // aberto => e.completed === false
   // todos => sem filtro
@@ -165,19 +164,19 @@ export default function HomePage() {
     }
   }
 
-  // Combine os dois filtros
+  // Combinação dos filtros
   const filteredEvents = events.filter((e) => applyTimeFilter(e) && applyCompletionFilter(e));
 
-  // Ordenar do mais antigo para o mais recente
+  // Ordenação crescente
   const sortedEvents = [...filteredEvents].sort((a, b) => {
     const dateA = a.date ? new Date(a.date).getTime() : 0;
     const dateB = b.date ? new Date(b.date).getTime() : 0;
-    return dateA - dateB; // ascendente => data antiga primeiro
+    return dateA - dateB; // crescente => data antiga primeiro
   });
 
   return (
     <div className="min-h-screen flex flex-col items-center">
-      <div className="p-10 w-full text-center bg-[#7bed9f] text-white">
+      <div className="p-10 w-full text-center bg-[#10b981] text-white">
         <h1 className="text-4xl font-black">StaK</h1>
         <span className="uppercase font-light text-lg">Seu gerenciador de tarefas pessoal!</span>
       </div>
@@ -192,14 +191,14 @@ export default function HomePage() {
       {/* Formulário para criação de evento */}
       <div className="mt-8 mb-6 bg-white p-6 py-8 rounded-2xl shadow-lg w-full max-w-3xl">
         <input
-          className="border p-2 w-full mb-2 rounded"
-          type="text"
+          className="border p-2 w-full mb-2 rounded focus:outline-0 focus:border-[#2ed573]"
+          type="text" 
           placeholder="Título"
           value={newEvent.title}
           onChange={(e) => setNewEvent({ ...newEvent, title: e.target.value })}
         />
         <textarea
-          className="border p-2 w-full mb-2 rounded"
+          className="border p-2 w-full mb-2 rounded focus:outline-0 focus:border-[#2ed573]"
           placeholder="Descrição"
           value={newEvent.description}
           onChange={(e) =>
@@ -207,13 +206,13 @@ export default function HomePage() {
           }
         />
         <input
-          className="border p-2 w-full mb-2 rounded"
+          className="border p-2 w-full mb-2 rounded focus:outline-0 focus:border-[#2ed573]"
           type="date"
           value={newEvent.date}
           onChange={(e) => setNewEvent({ ...newEvent, date: e.target.value })}
         />
         <button
-          className="bg-[#2ed573] text-white px-4 py-2 rounded hover:bg-blue-600 mt-4"
+          className="bg-[#10b981] text-white px-4 py-2 rounded hover:bg-[#2ed573] mt-4"
           onClick={createEvent}
         >
           Adicionar Evento
@@ -222,11 +221,11 @@ export default function HomePage() {
 
       {/* Filtros */}
       <div className="mb-6 bg-white p-4 rounded-2xl shadow-lg w-full max-w-3xl">
-        <div className="flex flex-col sm:flex-row gap-4 mb-4">
+        <div className="flex flex-col sm:flex-row gap-4">
           <div>
             <label className="font-semibold mr-2">Data:</label>
             <select
-              className="border p-2 rounded"
+              className="border p-2 rounded focus:outline-0 focus:border-[#2ed573]"
               value={timeFilter}
               onChange={(e) => setTimeFilter(e.target.value as 'dia' | 'mes' | 'todos')}
             >
@@ -239,7 +238,7 @@ export default function HomePage() {
           <div>
             <label className="font-semibold mr-2">Status:</label>
             <select
-              className="border p-2 rounded"
+              className="border p-2 rounded focus:outline-0 focus:border-[#2ed573]"
               value={completionFilter}
               onChange={(e) => setCompletionFilter(e.target.value as 'todos' | 'concluido' | 'aberto')}
             >
@@ -250,14 +249,13 @@ export default function HomePage() {
           </div>
         </div>
       </div>
-  
 
       {/* Lista de Eventos */}
-      <ul className="w-full max-w-3xl">
+      <ul className="w-full max-w-3xl mb-10">
         {sortedEvents.map((event) => (
           <li
             key={event._id}
-            className={`mb-2 p-4 rounded-2xl shadow-lg ${event.completed ? 'bg-[#7bed9f]' : 'bg-white'}`}
+            className={`mb-2 p-4 rounded-2xl shadow-lg ${event.completed ? 'bg-[#7bed9f] text-[#4f4f4f]' : 'bg-white'}`}
           >
             {editingId === event._id ? (
               // Formulário de edição
@@ -336,6 +334,10 @@ export default function HomePage() {
           </li>
         ))}
       </ul>
+      <div className="mb-6 bg-white p-4 rounded-2xl shadow-lg w-full max-w-3xl text-center bg-emerald-500 text-white">
+        <a className="font-bold uppercase" href="/tabela">Lista de Tarefas</a>
+      </div>
     </div>
   );
 }
+

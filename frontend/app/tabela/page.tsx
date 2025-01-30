@@ -105,19 +105,19 @@ export default function TabelaEventos() {
   return (
     <div className="min-h-screen"> 
       
-      <div className="p-10 w-full text-center bg-[#7bed9f] text-white">
+      <div className="p-10 w-full text-center bg-[#10b981] text-white">
         <h1 className="text-4xl font-black">StaK</h1>
         <span className="uppercase font-light text-lg">Seu gerenciador de tarefas pessoal!</span>
       </div>
 
       <div className="flex flex-col items-start pb-10 mt-10 p-6"> 
-        <a className="bg-[#2ed573] text-white px-4 py-2 rounded hover:bg-gray-600" href="./">Criar tarefas</a>
+        <a className="bg-[#10b981] text-white px-4 py-2 rounded hover:bg-gray-600" href="./">Criar tarefas</a>
       </div>
-      <h1 className="text-2xl font-bold mb-4 p-6">Tabela de Eventos (PDF)</h1>
+      <h1 className="text-2xl font-bold mb-4 p-6">Tabela de Tarefas</h1>
       <div className="flex items-center mb-4 space-x-4 p-6">
         <label className="font-semibold">Mês:</label>
         <select
-          className="border p-2 rounded"
+          className="border p-2 rounded focus:outline-0 focus:border-[#2ed573]"
           value={monthFilter}
           onChange={(e) => setMonthFilter(e.target.value)}
         >
@@ -146,7 +146,7 @@ export default function TabelaEventos() {
 
         {/* Botão para exportar para PDF */}
         <button
-          className="bg-green-500 text-white px-3 py-1 rounded hover:bg-green-600"
+          className="bg-[#10b981] text-white px-3 py-1 rounded hover:bg-green-600"
           onClick={exportToPdf}
         >
           Exportar PDF
