@@ -11,7 +11,7 @@ import { AuthModule } from './auth/auth.module';
 @Module({
   imports: [
     //inserir acesso ao banco de dados do mongodb
-    MongooseModule.forRoot('mongodb+srv://USUARIO:SENHA@NOME_DO.lzrle.mongodb.net/'), 
+    MongooseModule.forRoot('mongodb+srv://USUARIO:SENHA@NOME_DO_BANCO.lzrle.mongodb.net/'), 
     EventsModule,
     UsersModule,
     AuthModule,
