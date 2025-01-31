@@ -9,8 +9,6 @@ export class EventsController {
   @UseGuards(JwtAuthGuard)
   @Post()
   create(@Body() createEventDto: any) {
-    // Aqui poderíamos também validar manualmente se os campos existem
-    // mas se confiamos no required do Mongoose, ele rejeitará documentos sem eles
     return this.eventsService.createEvent(createEventDto);
   }
 

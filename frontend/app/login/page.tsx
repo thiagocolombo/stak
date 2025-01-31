@@ -12,15 +12,14 @@ export default function LoginPage() {
 
   const handleLogin = async () => {
     try {
-      // Chama /auth/login com { email, password }
+      // rota para login /auth/login
       const response = await axios.post('http://localhost:3000/auth/login', {
         email,
         password,
       });
-      // Deve retornar { access_token: '...' }
       const token = response.data.access_token;
 
-      // Armazena no localStorage (exemplo)
+      // Armazena no localStorage
       localStorage.setItem('token', token);
 
       // Redirecionar para a página principal

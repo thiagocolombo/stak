@@ -1,4 +1,4 @@
-// backend/src/auth/auth.module.ts
+
 import { Module } from '@nestjs/common';
 import { PassportModule } from '@nestjs/passport';
 import { JwtModule } from '@nestjs/jwt';
@@ -10,10 +10,10 @@ import { UsersModule } from 'src/users/users.module';
 
 @Module({
   imports: [
-    UsersModule, // para buscar usuários no DB
+    UsersModule, // buscar usuários no DB
     PassportModule,
     JwtModule.register({
-      secret: '12345', // troque por algo seguro ou use .env
+      secret: '12345', // SECRET_KEY_AQUI , lembrar de substituir por .env
       signOptions: { expiresIn: '1h' },
     }),
   ],

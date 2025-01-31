@@ -1,4 +1,3 @@
-// backend/src/users/users.service.ts
 import { Injectable, BadRequestException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
@@ -15,7 +14,7 @@ export class UsersService {
     if (existing) {
       throw new BadRequestException('E-mail já cadastrado');
     }
-    // em produção, faça hash da senha
+    // em produção, lembrar de colocar (hash da senha)
     const created = new this.userModel({ email, password });
     return created.save();
   }

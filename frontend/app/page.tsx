@@ -1,4 +1,4 @@
-"use client"; // Se estiver usando App Router (Next.js 13)
+"use client";
 
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';

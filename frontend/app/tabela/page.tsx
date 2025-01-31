@@ -33,21 +33,21 @@ export default function TabelaEventos() {
     }
   };
 
-  // Ordena por data (mais recente ou mais antiga)
+  // Ordena por data
   const sortEvents = (data: Event[]): Event[] => {
     const sorted = [...data].sort((a, b) => {
       const dateA = a.date ? new Date(a.date).getTime() : 0;
       const dateB = b.date ? new Date(b.date).getTime() : 0;
       if (sortByRecent) {
-        return dateB - dateA; // mais recente primeiro
+        return dateB - dateA; //crescente
       } else {
-        return dateA - dateB; // mais antiga primeiro
+        return dateA - dateB; //decrescente
       }
     });
     return sorted;
   };
 
-  // Filtro de mês: exibe só eventos do mês selecionado ("" => todos)
+  // Filtro de mês: exibe só eventos do mês selecionado ou ("" => todos)
   const filterByMonth = (data: Event[]): Event[] => {
     if (monthFilter === "") return data;
     const monthNum = parseInt(monthFilter, 10); // 0..11
@@ -67,7 +67,7 @@ export default function TabelaEventos() {
     // Cria uma nova instância de jsPDF
     const doc = new jsPDF();
 
-    // Montamos o cabeçalho (colunas) e o corpo (linhas)
+    // Montamos o cabeçalho e o corpo
     const head = [["Título", "Descrição", "Data"]];
     const body = finalData.map((evt) => [
       evt.title,
@@ -91,14 +91,14 @@ export default function TabelaEventos() {
         lineWidth: 0.1,
         lineColor: "#ccc",
       },
-      tableWidth: "wrap", // ou "auto" se preferir que ocupe toda a página
+      tableWidth: "auto",
     });
 
-    // Salvamos o PDF com nome "eventos.pdf"
-    doc.save("eventos.pdf");
+    
+    doc.save("tarefas.pdf");
   };
 
-  // Antes de renderizar, aplicamos filtro e ordenação
+  // Antes de renderizar, aplica o filtro de ordenação
   const filteredEvents = filterByMonth(events);
   const finalEvents = sortEvents(filteredEvents);
 

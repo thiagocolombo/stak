@@ -15,10 +15,10 @@ export default function RegisterPage() {
         password,
       });
       setMsg("Usuário criado com sucesso!");
-    } catch (error) {
+    } catch (error: any) {
       setMsg("Erro ao criar usuário: " + error.response?.data?.message);
-    }
-  };
+    } 
+  }; 
 
   return (
     <div className="p-4 flex flex-col items-center">
