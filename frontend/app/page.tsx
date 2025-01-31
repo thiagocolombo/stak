@@ -334,7 +334,7 @@ export default function HomePage() {
           </li>
         ))}
       </ul>
-      <div className="mb-6 bg-white p-4 rounded-2xl shadow-lg w-full max-w-3xl text-center bg-emerald-500 text-white">
+      <div className="mb-6 bg-[#10b981] p-4 rounded-2xl shadow-lg w-full max-w-3xl text-center bg-emerald-500 text-white">
         <a className="font-bold uppercase" href="/tabela">Lista de Tarefas</a>
       </div>
     </div>
